@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for Theme System */
+:root {
+  /* Calm Dawn Theme (Default) */
+  --primary: #8b5fb8;
+  --primary-foreground: #ffffff;
+  --secondary: #f8e7ff;
+  --secondary-foreground: #6b4a8a;
+  --background: linear-gradient(135deg, #e8d5ff 0%, #f5e7ff 25%, #ffeef7 50%, #e8f4ff 75%, #d5e8ff 100%);
+  --foreground: #2d1b3d;
+  --card: rgba(255, 255, 255, 0.3);
+  --card-foreground: #2d1b3d;
+  --border: rgba(255, 255, 255, 0.2);
+  --accent: #ff9bb5;
+  --accent-foreground: #ffffff;
+  
+  /* Glass effect variables */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="midnight"] {
+  --primary: #7c3aed;
+  --primary-foreground: #ffffff;
+  --secondary: #1e1b4b;
+  --secondary-foreground: #a5b4fc;
+  --background: linear-gradient(135deg, #0f0f23 0%, #1e1b4b 25%, #312e81 50%, #1e1b4b 75%, #0f0f23 100%);
+  --foreground: #e2e8f0;
+  --card: rgba(30, 27, 75, 0.4);
+  --card-foreground: #e2e8f0;
+  --border: rgba(124, 58, 237, 0.3);
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  
+  --glass-bg: rgba(30, 27, 75, 0.25);
+  --glass-border: rgba(124, 58, 237, 0.3);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="solar"] {
+  --primary: #f59e0b;
+  --primary-foreground: #1f2937;
+  --secondary: #fef3c7;
+  --secondary-foreground: #92400e;
+  --background: linear-gradient(135deg, #fef3c7 0%, #fde68a 25%, #fcd34d 50%, #f59e0b 75%, #d97706 100%);
+  --foreground: #1f2937;
+  --card: rgba(255, 255, 255, 0.4);
+  --card-foreground: #1f2937;
+  --border: rgba(245, 158, 11, 0.3);
+  --accent: #ef4444;
+  --accent-foreground: #ffffff;
+  
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(245, 158, 11, 0.3);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Glassmorphism utility classes */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+}
+
+.glass-card {
+  background: var(--card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.8);
+  }
+  
+  [data-theme="midnight"] {
+    --glass-bg: rgba(0, 0, 0, 0.9);
+    --glass-border: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Dyslexic-friendly font option */
+.dyslexic-font {
+  font-family: 'OpenDyslexic', 'Comic Sans MS', cursive;
+}
+
+/* Button styles */
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-secondary {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
