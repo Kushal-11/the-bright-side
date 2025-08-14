@@ -53,7 +53,7 @@ const ThreeJSHero = () => {
 
     // Create glassy spheres
     const spheres = [];
-    const sphereCount = 8;
+    const sphereCount = 10;
 
     for (let i = 0; i < sphereCount; i++) {
       const geometry = new THREE.SphereGeometry(
@@ -63,15 +63,17 @@ const ThreeJSHero = () => {
       );
 
       const material = new THREE.MeshPhysicalMaterial({
-        color: new THREE.Color().setHSL(0.7 + Math.random() * 0.3, 0.3, 0.8),
+        color: new THREE.Color().setHSL(0.7 + Math.random() * 0.3, 0.4, 0.7),
         transparent: true,
-        opacity: 0.3,
-        roughness: 0.1,
-        metalness: 0.1,
+        opacity: 0.6,
+        roughness: 0.2,
+        metalness: 0.0,
         clearcoat: 1.0,
         clearcoatRoughness: 0.1,
-        transmission: 0.8,
-        thickness: 0.5,
+        transmission: 0.7,
+        thickness: 1.0,
+        ior: 1.5,
+        reflectivity: 0.1,
       });
 
       const sphere = new THREE.Mesh(geometry, material);
@@ -103,12 +105,20 @@ const ThreeJSHero = () => {
     spheresRef.current = spheres;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    directionalLight.position.set(5, 5, 5);
-    scene.add(directionalLight);
+    const directionalLight1 = new THREE.DirectionalLight(0xffffff, 1.0);
+    directionalLight1.position.set(5, 5, 5);
+    scene.add(directionalLight1);
+
+    const directionalLight2 = new THREE.DirectionalLight(0x8b5fb8, 0.5);
+    directionalLight2.position.set(-5, -3, 2);
+    scene.add(directionalLight2);
+
+    // Add environment lighting for better glass appearance
+    const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.3);
+    scene.add(hemisphereLight);
 
     // Mouse movement handler
     const handleMouseMove = (event) => {

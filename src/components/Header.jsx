@@ -2,7 +2,7 @@ import React from 'react';
 import { Menu, X } from 'lucide-react';
 import ThemeSwitcher from './ThemeSwitcher';
 
-const Header = () => {
+const Header = ({ onTryFree }) => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const toggleMenu = () => {
@@ -39,7 +39,10 @@ const Header = () => {
               >
                 Login
               </a>
-              <button className="btn-primary">
+              <button 
+                onClick={onTryFree}
+                className="btn-primary hover:scale-105 transition-transform"
+              >
                 Try for free
               </button>
             </div>
@@ -91,7 +94,13 @@ const Header = () => {
                 Login
               </a>
               <div className="px-3 py-2">
-                <button className="btn-primary w-full">
+                <button 
+                  onClick={() => {
+                    toggleMenu();
+                    onTryFree?.();
+                  }}
+                  className="btn-primary w-full hover:scale-105 transition-transform"
+                >
                   Try for free
                 </button>
               </div>

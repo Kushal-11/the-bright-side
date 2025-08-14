@@ -21,6 +21,8 @@ export default {
         border: 'var(--border)',
         accent: 'var(--accent)',
         'accent-foreground': 'var(--accent-foreground)',
+        'glass-bg': 'var(--glass-bg)',
+        'glass-border': 'var(--glass-border)',
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',

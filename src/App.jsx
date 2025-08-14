@@ -1,23 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ThemeProvider } from './components/ThemeProvider';
 import Header from './components/Header';
 import ThreeJSHero from './components/ThreeJSHero';
 import FeatureCard from './components/FeatureCard';
 import TypewriterText from './components/TypewriterText';
+import JournalingModal from './components/JournalingModal';
 import { Brain, Shield, FileText, ArrowRight } from 'lucide-react';
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState('checkin');
+
+  const handleCheckIn = () => {
+    setModalMode('checkin');
+    setIsModalOpen(true);
+  };
+
+  const handleDemo = () => {
+    setModalMode('prompt');
+    setIsModalOpen(true);
+  };
   return (
     <ThemeProvider>
       <div className="min-h-screen relative overflow-hidden">
         {/* Three.js Background */}
-        <div className="fixed inset-0 z-0">
+        <div className="threejs-container">
           <ThreeJSHero />
         </div>
 
         {/* Content */}
-        <div className="relative z-10">
-          <Header />
+        <div className="content-layer">
+          <Header onTryFree={handleCheckIn} />
           
           {/* Hero Section */}
           <main className="pt-24 pb-16">
@@ -39,11 +52,17 @@ function App() {
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-20">
-                  <button className="btn-primary flex items-center gap-2 text-lg px-8 py-4">
+                  <button 
+                    onClick={handleCheckIn}
+                    className="btn-primary flex items-center gap-2 text-lg px-8 py-4 hover:scale-105 transition-transform"
+                  >
                     Check in
                     <ArrowRight className="w-5 h-5" />
                   </button>
-                  <button className="btn-secondary text-lg px-8 py-4">
+                  <button 
+                    onClick={handleDemo}
+                    className="btn-secondary text-lg px-8 py-4 hover:scale-105 transition-transform"
+                  >
                     Explore a demo
                   </button>
                 </div>
@@ -165,7 +184,10 @@ function App() {
                   <p className="text-lg text-foreground/80 mb-8">
                     Start your mindful journaling journey today. No account required to try.
                   </p>
-                  <button className="btn-primary text-lg px-8 py-4 flex items-center gap-2 mx-auto">
+                  <button 
+                    onClick={handleCheckIn}
+                    className="btn-primary text-lg px-8 py-4 flex items-center gap-2 mx-auto hover:scale-105 transition-transform"
+                  >
                     Try for free
                     <ArrowRight className="w-5 h-5" />
                   </button>
@@ -183,6 +205,13 @@ function App() {
             </div>
           </footer>
         </div>
+
+        {/* Journaling Modal */}
+        <JournalingModal 
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          mode={modalMode}
+        />
       </div>
     </ThemeProvider>
   );
